@@ -112,7 +112,6 @@ pub struct Screen {
 
 > `Box<T>` 在后面章节会[详细讲解](https://course.rs/advance/smart-pointer/box.html)，大家现在把它当成一个引用即可，只不过它包裹的值会被强制分配在堆上。
 
-
 ```rust
 trait Draw {
     fn draw(&self) -> String;
@@ -275,7 +274,7 @@ fn draw2(x: dyn Draw) {
 }
 ```
 
-```
+```rust
 10 | fn draw2(x: dyn Draw) {
    |          ^ doesn't have a size known at compile-time
    |
@@ -377,7 +376,6 @@ error[E0038]: the trait `std::clone::Clone` cannot be made into an object
 ```
 
 这意味着不能以这种方式使用此特征作为特征对象。
-
 
 ## 课后练习
 
