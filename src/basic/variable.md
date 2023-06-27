@@ -122,7 +122,7 @@ warning: unused variable: `y`
 
 可以看到，两个变量都是只有声明，没有使用，但是编译器却独独给出了 `y` 未被使用的警告，充分说明了 `_` 变量名前缀在这里发挥的作用。
 
-值得注意的是，这里编译器还很善意的给出了提示( Rust 的编译器非常强大，这里的提示只是小意思 ): 将 `y` 修改 `_y` 即可。这里就不再给出代码，留给大家手动尝试并观察下运行结果。
+值得注意的是，这里编译器还很善意的给出了提示 (Rust 的编译器非常强大，这里的提示只是小意思)： 将 `y` 修改 `_y` 即可。这里就不再给出代码，留给大家手动尝试并观察下运行结果。
 
 更多关于 `_x` 的使用信息，请阅读后面的[模式匹配章节](https://course.rs/basic/match-pattern/all-patterns.html?highlight=_#使用下划线开头忽略未使用的变量)。
 
@@ -256,8 +256,6 @@ error: aborting due to previous error
 
 万事开头难，到目前为止，都进展很顺利，那下面开始，咱们正式进入 Rust 的类型世界，看看有哪些挑战在前面等着大家。
 
-
 ## 课后练习
 
 > [Rust By Practice](https://zh.practice.rs/variables.html)，支持代码在线编辑和运行，并提供详细的[习题解答](https://github.com/sunface/rust-by-practice/blob/master/solutions/variables.md)。
-
