@@ -4,7 +4,7 @@
 
 1. 设置所需的数据或状态
 2. 运行想要测试的代码
-3. 判断( assert )返回的结果是否符合预期
+3. 判断（assert）返回的结果是否符合预期
 
 让我们来看看该如何使用 Rust 提供的特性来按照上述步骤编写测试用例。
 
@@ -32,15 +32,15 @@ mod tests {
 
 其中，`tests` 就是一个测试模块，`it_works` 则是我们的主角：测试函数。
 
-可以看出，测试函数需要使用 `test` 属性进行标注。关于属性( `attribute` )，我们在之前的章节已经见过类似的 `derive`，使用它可以派生自动实现的 `Debug` 、`Copy` 等特征，同样的，使用 `test` 属性，我们也可以获取 Rust 提供的测试特性。
+可以看出，测试函数需要使用 `test` 属性进行标注。关于属性（`attribute`），我们在之前的章节已经见过类似的 `derive`，使用它可以派生自动实现的 `Debug` 、`Copy` 等特征，同样的，使用 `test` 属性，我们也可以获取 Rust 提供的测试特性。
 
 经过 `test` 标记的函数就可以被测试执行器发现，并进行运行。当然，在测试模块 `tests` 中，还可以定义非测试函数，这些函数可以用于设置环境或执行一些通用操作：例如为部分测试函数提供某个通用的功能，这种功能就可以抽象为一个非测试函数。
 
 换而言之，正是因为测试模块既可以定义测试函数又可以定义非测试函数，导致了我们必须提供一个特殊的标记 `test`，用于告知哪个函数才是测试函数。
 
-#### assert_eq
+### assert_eq
 
-在测试函数中，还使用到了一个内置的断言：`assert_eq`，该宏用于对结果进行断言：`2 + 2` 是否等于 `4`。与之类似，Rust 还内置了其它一些实用的断言，具体参见[后续章节](https://course.rs/test/assertion.html)。
+在测试函数中，还使用到了一个内置的断言：`assert_eq`，该宏用于对结果进行断言：`2 + 2` 是否等于 `4`。与之类似，Rust 还内置了其它一些实用的断言，具体参见[8.3. 断言 assertion](https://course.rs/test/assertion.html)。
 
 ## cargo test
 
@@ -69,7 +69,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 - 测试用例是分批执行的，`running 1 test` 表示下面的输出 `test result` 来自一个测试用例的运行结果。
 - `test tests::it_works` 中包含了测试用例的名称
 - `test result: ok` 中的 `ok` 表示测试成功通过
-- `1 passed` 代表成功通过一个测试用例(因为只有一个)，`0 failed` : 没有测试用例失败，`0 ignored` 说明我们没有将任何测试函数标记为运行时可忽略，`0 filtered` 意味着没有对测试结果做任何过滤，`0 mesasured` 代表[基准测试(benchmark)](https://course.rs/test/benchmark.html)的结果
+- `1 passed` 代表成功通过一个测试用例（因为只有一个），`0 failed` : 没有测试用例失败，`0 ignored` 说明我们没有将任何测试函数标记为运行时可忽略，`0 filtered` 意味着没有对测试结果做任何过滤，`0 mesasured` 代表[基准测试（benchmark）](https://course.rs/test/benchmark.html)的结果
 
 关于 `filtered` 和 `ignored` 的使用，在本章节的后续内容我们会讲到，这里暂且略过。
 
@@ -77,7 +77,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 大家还可以尝试修改下测试函数的名称，例如修改为 `exploration`，看看运行结果将如何变化。
 
-#### 失败的测试用例
+### 失败的测试用例
 
 是时候开始写自己的测试函数了，为了演示，这次我们来写一个会运行失败的:
 
@@ -248,7 +248,7 @@ failures:
 note: test did not panic as expected // 测试并没有按照预期发生 panic
 ```
 
-#### expected
+### expected
 
 虽然 `panic` 被成功测试到，但是如果代码发生的 `panic` 和我们预期的 `panic` 不符合呢？因为一段糟糕的代码可能会在不同的代码行生成不同的 `panic`。
 
@@ -288,7 +288,7 @@ mod tests {
 
 这段代码会通过测试，因为通过增加了 `expected` ，我们成功指定了期望的 `panic` 信息，大家可以顺着代码推测下：把 `200` 带入到 `new` 函数中看看会触发哪个 `panic`。
 
-如果注意看，你会发现 `expected` 的字符串和实际 `panic` 的字符串可以不同，前者只需要是后者的字符串前缀即可，如果改成 ` #[should_panic(expected = "Guess value must be less than")]`，一样可以通过测试。
+如果注意看，你会发现 `expected` 的字符串和实际 `panic` 的字符串可以不同，前者只需要是后者的字符串前缀即可，如果改成 `#[should_panic(expected = "Guess value must be less than")]`，一样可以通过测试。
 
 这里由于篇幅有限，我们就不再展示测试失败的报错，大家可以自己修改下 `expected` 的信息，然后看看报错后的输出长啥样。
 
@@ -338,14 +338,14 @@ mod tests {
 解决办法也有，我们可以让每个测试写入自己独立的文件中，当然，也可以让所有测试一个接着一个顺序运行:
 
 ```rust
-$ cargo test -- --test-threads=1
+cargo test -- --test-threads=1
 ```
 
 首先能注意到的是该命令行参数是第二种类型：提供给编译后的可执行文件的，因为它在 `--` 之后进行传递。其次，细心的同学可能会想到，线程数不仅仅可以指定为 `1`，还可以指定为 `4`、`8`，当然，想要顺序运行，就必须是 `1`。
 
 ## 测试函数中的 `println!`
 
-默认情况下，如果测试通过，那写入标准输出的内容是不会显示在测试结果中的:
+默认情况下，如果测试通过，那写入标准输出的内容是不会显示在测试结果中的：
 
 ```rust
 fn prints_and_returns_10(a: i32) -> i32 {
@@ -397,14 +397,14 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 大家注意看，`I got the value 4` 并没有被输出，因为该测试顺利通过了，如果就是想要看所有的输出，该怎么办呢？
 
 ```rust
-$ cargo test -- --show-output
+cargo test -- --show-output
 ```
 
 如上所示，只需要增加一个参数，具体的输出就不再展示，总之这次大家一定可以顺利看到 `I got the value 4` 的身影。
 
 ## 指定运行一部分测试
 
-在 Mysql 中有上百万的单元测试，如果使用类似 `cargo test` 的命令来运行全部的测试，那开发真的工作十分钟，吹牛八小时了。对于 Rust 的中大型项目也一样，每次都运行全部测试是不可接受的，特别是你的工作仅仅是项目中的一部分时。
+在 MySQL 中有上百万的单元测试，如果使用类似 `cargo test` 的命令来运行全部的测试，那开发真的工作十分钟，吹牛八小时了。对于 Rust 的中大型项目也一样，每次都运行全部测试是不可接受的，特别是你的工作仅仅是项目中的一部分时。
 
 ```rust
 pub fn add_two(a: i32) -> i32 {
@@ -451,7 +451,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 就不说上百万测试，就说几百个，想象一下结果会是怎么样，下面我们来看看该如何解决这个问题。
 
-#### 运行单个测试
+### 运行单个测试
 
 这个很简单，只需要将指定的测试函数名作为参数即可：
 
@@ -468,13 +468,13 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; fini
 但是，如果你试图同时指定多个名称，那抱歉:
 
 ```shell
-$ cargo test one_hundred,add_two_and_two
-$ cargo test one_hundred add_two_and_two
+cargo test one_hundred,add_two_and_two
+cargo test one_hundred add_two_and_two
 ```
 
 这两种方式统统不行，此时就需要使用名称过滤的方式来实现了。
 
-#### 通过名称来过滤测试
+### 通过名称来过滤测试
 
 我们可以通过指定部分名称的方式来过滤运行相应的测试:
 
@@ -511,7 +511,7 @@ test tests::one_hundred ... ok
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-#### 忽略部分测试
+### 忽略部分测试
 
 有时候，一些测试会非常耗时间，因此我们希望在 `cargo test` 中对它进行忽略，如果使用之前的方式，我们需要将所有需要运行的名称指定一遍，这非常麻烦，好在 Rust 允许通过 `ignore` 关键字来忽略特定的测试用例:
 
@@ -563,7 +563,7 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-#### 组合过滤
+### 组合过滤
 
 上面的方式虽然很强大，但是单独使用依然存在局限性。好在它们还能组合使用，例如还是之前的代码：
 
@@ -612,11 +612,11 @@ test tests::expensive_run ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
 ```
 
-类似的还有很多，大家可以自己摸索研究下，总之，熟练掌握测试的使用是非常重要的，虽然包括我在内的很多开发并不喜欢写测试 :)
+类似的还有很多，大家可以自己摸索研究下，总之，熟练掌握测试的使用是非常重要的，虽然包括我在内的很多开发并不喜欢写测试 :）
 
 ## `[dev-dependencies]`
 
-与 `package.json`( Nodejs )文件中的 `devDependencies` 一样， Rust 也能引入只在开发测试场景使用的外部依赖。
+与 `package.json`（Nodejs）文件中的 `devDependencies` 一样， Rust 也能引入只在开发测试场景使用的外部依赖。
 
 其中一个例子就是 [`pretty_assertions`](https://docs.rs/pretty_assertions/1.0.0/pretty_assertions/index.html)，它可以用来扩展标准库中的 `assert_eq!` 和 `assert_ne!`，例如提供彩色字体的结果对比。
 
@@ -647,13 +647,13 @@ mod tests {
 }
 ```
 
-在 `tests` 模块中，我们通过 `use pretty_assertions::assert_eq;` 成功的引入之前添加的包，由于 `tests` 模块明确的用于测试目的，这种引入并不会报错。 大家可以试试在正常代码(非测试代码)中引入该包，看看会发生什么。
+在 `tests` 模块中，我们通过 `use pretty_assertions::assert_eq;` 成功的引入之前添加的包，由于 `tests` 模块明确的用于测试目的，这种引入并不会报错。 大家可以试试在正常代码（非测试代码）中引入该包，看看会发生什么。
 
 ## 生成测试二进制文件
 
 在有些时候，我们可能希望将测试与别人分享，这种情况下生成一个类似 `cargo build` 的可执行二进制文件是很好的选择。
 
-事实上，在 `cargo test` 运行的时候，系统会自动为我们生成一个可运行测试的二进制可执行文件:
+事实上，在 `cargo test` 运行的时候，系统会自动为我们生成一个可运行测试的二进制可执行文件：
 
 ```shell
 $ cargo test
@@ -675,4 +675,3 @@ test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 ```
 
 如果你只想生成编译生成文件，不想看 `cargo test` 的输出结果，还可以使用 `cargo test --no-run`.
-

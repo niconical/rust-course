@@ -9,7 +9,7 @@
 - `assert!`, `assert_eq!`, `assert_ne!`, 它们会在所有模式下运行
 - `debug_assert!`, `debug_assert_eq!`, `debug_assert_ne!`, 它们只会在 `Debug` 模式下运行
 
-## assert_eq!
+## assert_eq
 
 `assert_eq!` 宏可以用于判断两个表达式返回的值是否相等 :
 
@@ -50,7 +50,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 **以上特征限制对于下面即将讲解的 `assert_ne!` 一样有效，** 就不再重复讲述。
 
-## assert_ne!
+## assert_ne
 
 `assert_ne!` 在使用和限制上与 `assert_eq!` 并无区别，唯一的区别就在于，前者判断的是两者的不相等性。
 
@@ -66,7 +66,7 @@ fn main() {
 
 由于 `a` 和 `b` 不相等，因此 `assert_ne!` 会顺利通过，不再报错。
 
-## assert!
+## assert
 
 `assert!` 用于判断传入的布尔表达式是否为 `true`:
 
@@ -148,7 +148,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 但是在 `Release` 模式下却没有任何输出:
 
 ```shell
-$ cargo run --release
+cargo run --release
 ```
 
 若一些断言检查会影响发布版本的性能时，大家可以使用 `debug_assert!` 来避免这种情况的发生。

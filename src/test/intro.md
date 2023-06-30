@@ -1,6 +1,6 @@
 # 测试
 
-> 测试可以有效的发现程序存在的缺陷，但是它却无法证明程序不存在缺陷 - Edsger W. Dijkstra, "The Humble Programmer"
+> 测试可以有效的发现程序存在的缺陷，但是它却无法证明程序不存在缺陷 —— Edsger W. Dijkstra, "The Humble Programmer"
 
 对于程序开发而言，测试可以说是至关重要的一环，虽然它无法完全消除所有的 Bug，但是依然可以在某种程度上保证程序的正确性。
 

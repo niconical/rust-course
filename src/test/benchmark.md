@@ -15,7 +15,7 @@
 
 官方提供的测试工具，目前最大的问题就是只能在非 `stable` 下使用，原因是需要在代码中引入 `test` 特性: `#![feature(test)]`。
 
-#### 设置 Rust 版本
+### 设置 Rust 版本
 
 因此在开始之前，我们需要先将当前仓库中的 [`Rust 版本`](https://course.rs/appendix/rust-version.html#不稳定功能)从 `stable` 切换为 `nightly`:
 
@@ -32,7 +32,7 @@ nightly-aarch64-apple-darwin (override)
 
 很简单吧，其实只要一个命令就可以切换指定项目的 Rust 版本，例如你还能在基准测试后再使用 `rustup override set stable` 切换回 `stable` 版本。
 
-#### 使用 benchmark
+### 使用 benchmark
 
 当完成版本切换后，就可以开始正式编写 `benchmark` 代码了。首先，将 `src/lib.rs` 中的内容替换成如下代码：
 
@@ -89,9 +89,9 @@ test result: ok. 0 passed; 0 failed; 1 ignored; 1 measured; 0 filtered out; fini
 看到没，一个截然不同的结果，除此之外还能看出几点:
 
 - 单元测试 `it_works` 被忽略，并没有执行: `tests::it_works ... ignored`
-- benchmark 的结果是 `0 ns/iter`，表示每次迭代( `b.iter` )耗时 `0 ns`，奇怪，怎么是 `0` 纳秒呢？别急，原因后面会讲
+- benchmark 的结果是 `0 ns/iter`，表示每次迭代（`b.iter`）耗时 `0 ns`，奇怪，怎么是 `0` 纳秒呢？别急，原因后面会讲
 
-#### 一些使用建议
+### 一些使用建议
 
 关于 `benchmark`，这里有一些使用建议值得大家关注:
 
@@ -100,7 +100,7 @@ test result: ok. 0 passed; 0 failed; 1 ignored; 1 measured; 0 filtered out; fini
 - 最好让 `iter` 之外的代码也具有幂等性，因为它也可能被 `benchmark` 运行多次
 - 循环内的代码应该尽量的短小快速，因为这样循环才能被尽可能多的执行，结果也会更加准确
 
-#### 谜一般的性能结果
+### 谜一般的性能结果
 
 在写 `benchmark` 时，你可能会遇到一些很纳闷的棘手问题，例如以下代码:
 
@@ -152,7 +152,7 @@ mod tests {
 
 通过`cargo bench`运行后，得到一个难以置信的结果：`test tests::bench_u64 ... bench: 0 ns/iter (+/- 0)`, 难道 Rust 已经到达量子计算机级别了？
 
-其实，原因藏在`LLVM`中: `LLVM`认为`fibonacci_u64`函数调用的结果没有使用，同时也认为该函数没有任何副作用(造成其它的影响，例如修改外部变量、访问网络等), 因此它有理由把这个函数调用优化掉！
+其实，原因藏在`LLVM`中: `LLVM`认为`fibonacci_u64`函数调用的结果没有使用，同时也认为该函数没有任何副作用（造成其它的影响，例如修改外部变量、访问网络等）, 因此它有理由把这个函数调用优化掉！
 
 解决很简单，使用 Rust 标准库中的 `black_box` 函数:
 
@@ -162,7 +162,7 @@ mod tests {
 }
 ```
 
-通过这个函数，我们告诉编译器，让它尽量少做优化，此时 LLVM 就不会再自作主张了:)
+通过这个函数，我们告诉编译器，让它尽量少做优化，此时 LLVM 就不会再自作主张了 :）
 
 ```shell
 $ cargo bench
